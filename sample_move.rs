@@ -1,21 +1,29 @@
+// -- ##################################
+// -- Task: Spawning 10 threads in Rust
+// -- ##################################
+
+// Use std thread crate
 use std::thread;
 
+// static value NO_THREADS
+static NO_THREADS: i32 = 10;
+
 fn main() {
-    let handle = thread::spawn(move || {
-        println!("Hello from spawned thread")
-    });
+    // Make a mutable vector named thread_holder to hold the threads spawned
+    let mut thread_holder = vec![];
 
-    let join_handle = thread::spawn(move || {
-        println!("Hello from second spawned thread");
-        17
-    });
-
-    println!("Hello from the main thread");
-
-    match join_handle.join() {
-        Ok(x) => println!("Second spawned thread returned {}", x),
-        Err(_) => println!("Second spawned thread panicked")
+    for i in 0..NO_THREADS {
+        // Spin up another thread
+        thread_holder.push(thread::spawn(move || {
+            println!("Thread number is {}", i);
+            i
+        }));
     }
 
-    println!{"{:?}", handle.join().unwrap()};
+    println!("********************************");
+
+    for thread_elements in thread_holder {
+        // Wait for the thread to finish. Returns a result.
+        println!("Thread returned {:?}", thread_elements.join().unwrap());
+    }
 }
