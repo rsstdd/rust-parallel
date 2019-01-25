@@ -19,6 +19,7 @@ fn main() {
     if output.status.success() {
         let s = String::from_utf8_lossy(&output.stdout);
 
+        println!("rustc succeeded and stdout was:n{}", s);
     } else {
         let s = String::from_utf8_lossy(&output.stderr);
 
