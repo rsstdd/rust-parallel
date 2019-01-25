@@ -1,7 +1,6 @@
 use std::thread;
 
 fn main() {
-    let x = 1;
     let handle = thread::spawn(move || {
         println!("Hello from spawned thread")
     });
@@ -14,7 +13,7 @@ fn main() {
     println!("Hello from the main thread");
 
     match join_handle.join() {
-        Ok(x) => println!("Second spawned thread returned {}", x);
+        Ok(x) => println!("Second spawned thread returned {}", x),
         Err(_) => println!("Second spawned thread panicked")
     }
 
